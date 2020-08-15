@@ -1,0 +1,12 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SwitchPreferenceCompat
+        app:iconSpaceReserved="false"
+        app:key="webhookEnabled"
+        app:title="@string/settings_enable" />
+
+    <EditTextPreference
+        app:iconSpaceReserved="false"
+        app:key="webhookUrl"
+        app:title="@string/settings_server_url"
+        app:useSimpleSummaryProvider="true" />
+</PreferenceScreen>

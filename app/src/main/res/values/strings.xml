@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">SMS Hooks</string>
+    <string name="app_name">SMS Webhooks</string>
+
+    <string name="settings_enable">Enable webhooks</string>
+    <string name="settings_server_url">Webhook URL</string>
+    <string name="settings_server_url_hint">https://yourserver.com</string>
 </resources>
