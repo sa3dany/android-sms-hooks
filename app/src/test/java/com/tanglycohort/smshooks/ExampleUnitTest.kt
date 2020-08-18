@@ -1,4 +1,4 @@
-package com.example.smshooks
+package com.tanglycohort.smshooks
 
 import org.junit.Test
 

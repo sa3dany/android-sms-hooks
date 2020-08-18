@@ -1,4 +1,4 @@
-package com.example.smshooks;
+package com.tanglycohort.smshooks;
 
 import android.content.BroadcastReceiver
 import android.content.Context
