@@ -1,4 +1,4 @@
-package com.example.smshooks
+package com.tanglycohort.smshooks
 
 import android.os.Bundle
 import android.text.InputType

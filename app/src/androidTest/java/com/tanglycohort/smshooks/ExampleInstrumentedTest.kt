@@ -1,4 +1,4 @@
-package com.example.smshooks
+package com.tanglycohort.smshooks
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
