@@ -4,56 +4,88 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.provider.Telephony.Sms.Intents.getMessagesFromIntent
+import android.telephony.SmsMessage
 import android.util.Log
-import android.widget.Toast
 import androidx.preference.PreferenceManager
 import androidx.work.*
+import java.text.DateFormat
 
 class SmsBroadcastReceiver : BroadcastReceiver() {
+
+    private var isEnabled = false
+    private var webhookUrl: String? = null
+    private lateinit var message: CompleteSmsMessage
+
     override fun onReceive(context: Context, intent: Intent) {
-        val appPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-
-        val appEnabled = appPreferences.getBoolean("webhookEnabled", false)
-        if (!appEnabled) {
-            return
+        PreferenceManager.getDefaultSharedPreferences(context).also {
+            isEnabled = it.getBoolean("webhookEnabled", false)
+            webhookUrl = it.getString("webhookUrl", null)
+            if (!isEnabled || webhookUrl.isNullOrEmpty()) {
+                return
+            }
         }
 
-        // Stop here if no server URL have been set in settings
-        val webHookUrl = appPreferences.getString("webhookUrl", "")
-        if (webHookUrl.isNullOrEmpty()) {
-            return
-        }
+        message = getFullMessage(getMessagesFromIntent(intent))
 
-        val smsMessages = getMessagesFromIntent(intent)
-        for (message in smsMessages) {
-            val postWorkRequest: WorkRequest =
-                OneTimeWorkRequestBuilder<PostingWorker>()
-                    .setInputData(
-                        workDataOf(
-                            "SMS_BODY" to message.messageBody,
-                            "SMS_FROM" to message.originatingAddress,
-                            "SMS_TIMESTAMP" to message.timestampMillis,
-                            "WEBHOOK_URL" to webHookUrl
-                        )
+        WorkManager.getInstance(context).also { workManager ->
+            OneTimeWorkRequestBuilder<WebhookWorker>().apply {
+                setInputData(
+                    workDataOf(
+                        "SMS_BODY" to message.body,
+                        "SMS_FROM" to message.originatingAddress,
+                        "SMS_TIMESTAMP" to message.timestampMillis,
+                        "WEBHOOK_URL" to webhookUrl
                     )
-                    .setConstraints(
-                        Constraints.Builder()
-                            .setRequiredNetworkType(NetworkType.CONNECTED)
-                            .build()
-                    )
-                    .build()
-            WorkManager
-                .getInstance(context)
-                .enqueue(postWorkRequest)
+                )
+                setConstraints(
+                    Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build()
+                )
+                workManager.enqueue(this.build())
+            }
         }
 
         // Log
         StringBuilder().apply {
-            append("Action: ${intent.action}\n")
-            append("URI: ${intent.toUri(Intent.URI_INTENT_SCHEME)}\n")
+            append("Received broadcast for SMS ")
+            append(
+                "[ ${message.originatingAddress}@${
+                    DateFormat.getInstance().format(message.timestampMillis)
+                } ]\n"
+            )
             toString().also { log ->
-                Log.d(this::class.simpleName, log)
-                Toast.makeText(context, log, Toast.LENGTH_LONG).show()
+                Log.i(SmsBroadcastReceiver::class.simpleName, log)
+                context.openFileOutput("log", Context.MODE_PRIVATE.or(Context.MODE_APPEND)).use {
+                    it.write(log.toByteArray())
+                }
+            }
+        }
+    }
+
+    companion object {
+        /**
+         * This class represents a complete SMS message after concatenating all bodies from the PDUs.
+         * The rest of the fields are from the final SMS PDU.
+         */
+        class CompleteSmsMessage(
+            val body: String,
+            var originatingAddress: String?,
+            var timestampMillis: Long
+        )
+
+        /**
+         * Combines SMS message parts into a complete message.
+         */
+        private fun getFullMessage(messageParts: Array<SmsMessage>): CompleteSmsMessage {
+            messageParts.last().also { part ->
+                return CompleteSmsMessage(
+                    timestampMillis = part.timestampMillis,
+                    originatingAddress = part.originatingAddress,
+                    body = messageParts
+                        .map { it.messageBody }
+                        .reduce { acc, body -> acc + body }
+                )
             }
         }
     }
