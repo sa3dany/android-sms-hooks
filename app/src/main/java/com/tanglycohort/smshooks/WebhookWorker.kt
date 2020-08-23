@@ -11,13 +11,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
 
-class PostingWorker(appContext: Context, workerParams: WorkerParameters) :
-    Worker(appContext, workerParams) {
-    companion object {
-        private val MEDIA_TYPE_JSON = "application/json; charset=utf-8".toMediaType()
-    }
-
-    private val client = OkHttpClient()
+class WebhookWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
 
     override fun doWork(): Result {
         val smsBody = inputData.getString("SMS_BODY") ?: return Result.failure()
@@ -25,7 +19,6 @@ class PostingWorker(appContext: Context, workerParams: WorkerParameters) :
         val smsTimestamp = inputData.getLong("SMS_TIMESTAMP", 0)
         val webhookUrl = inputData.getString("WEBHOOK_URL") ?: return Result.failure()
 
-        // Serialize to JSON
         val jsonBody = JSONObject()
             .put("body", smsBody)
             .put("from", smsFrom)
@@ -36,22 +29,29 @@ class PostingWorker(appContext: Context, workerParams: WorkerParameters) :
             .url(webhookUrl)
             .post(jsonBody.toRequestBody(MEDIA_TYPE_JSON))
             .build()
-        client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) {
-                // Log failure
-                StringBuilder().apply {
-                    append("Action: WEBHOOK\n")
-                    append("URI: $webhookUrl\n")
-                    append("Response Code: $response\n")
-                    toString().also { log ->
-                        Log.d(this::class.simpleName, log)
+        OkHttpClient().also { client ->
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    // Log failure
+                    StringBuilder().apply {
+                        append("Action: WEBHOOK\n")
+                        append("URI: $webhookUrl\n")
+                        append("Response Code: $response\n")
+                        toString().also { log ->
+                            Log.d(this::class.simpleName, log)
+                        }
                     }
+                    return Result.failure()
                 }
-                return Result.failure()
             }
         }
 
         return Result.success()
+    }
+
+
+    companion object {
+        private val MEDIA_TYPE_JSON = "application/json; charset=utf-8".toMediaType()
     }
 }
 
