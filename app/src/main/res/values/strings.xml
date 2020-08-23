@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">SMS Webhooks</string>
-
-    <string name="settings_enable">Enable webhooks</string>
+    <string name="app_name">SMS Hooks</string>
+    <string name="settings_enable">Enable webhook</string>
     <string name="settings_server_url">Webhook URL</string>
     <string name="settings_server_url_hint">https://yourserver.com</string>
+    <string name="settings_export_logs">View logs</string>
+    <string name="settings_export_logs_summary">Export logs to file</string>
 </resources>
