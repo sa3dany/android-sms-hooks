@@ -1,12 +1,31 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-    <SwitchPreferenceCompat
+    <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:key="webhookEnabled"
-        app:title="@string/settings_enable" />
+        app:key="settingsCategory"
+        app:title="Settings">
 
-    <EditTextPreference
+        <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            app:key="webhookEnabled"
+            app:title="@string/settings_enable" />
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="webhookUrl"
+            app:title="@string/settings_server_url"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:key="webhookUrl"
-        app:title="@string/settings_server_url"
-        app:useSimpleSummaryProvider="true" />
+        app:key="debugCategory"
+        app:title="Debug">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="exportLogs"
+            app:summary="Export logs to file"
+            app:title="View logs" />
+    </PreferenceCategory>
 </PreferenceScreen>
