@@ -1,8 +1,13 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/littleBoyBlue</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorPrimaryVariant">@color/lightSkyBlue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorAccent">@color/fuzzyWuzzy</item>
+        <item name="colorSecondary">@color/fuzzyWuzzy</item>
+        <item name="colorSecondaryVariant">@color/mantis</item>
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 </resources>
