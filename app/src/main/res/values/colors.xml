@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     // Adaptive icon bg color
-    <color name="ic_launcher_background">#F5F6F4</color>
+    <color name="ic_launcher_background">#FFF</color>
 
     // Theme colors
-    <color name="colorPrimary">#62A5F1</color>
-    <color name="colorPrimaryDark">#231928</color>
-    <color name="colorAccent">#B63C59</color>
-
-    // Additional colors
-    <color name="colorAccentLight">#678D94</color>
+    <color name="littleBoyBlue">#569EF0</color>
+    <color name="lightSkyBlue">#98D6FF</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="denim">#1060BC</color>
+    <color name="fuzzyWuzzy">#C66C72</color>
+    <color name="mantis">#78BC61</color>
+    <color name="grassGreen">#73BE06</color>
 </resources>
