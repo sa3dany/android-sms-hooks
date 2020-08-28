@@ -2,17 +2,17 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:key="settingsCategory"
-        app:title="Settings">
+        app:title="@string/preference_category_webhook">
 
         <SwitchPreferenceCompat
             app:iconSpaceReserved="false"
             app:key="webhookEnabled"
-            app:title="@string/settings_enable" />
+            app:title="@string/preference_enabled" />
 
         <EditTextPreference
             app:iconSpaceReserved="false"
             app:key="webhookUrl"
-            app:title="@string/settings_server_url"
+            app:title="@string/preference_webhook_url"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
@@ -20,12 +20,12 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:key="debugCategory"
-        app:title="Debug">
+        app:title="@string/preference_category_debug">
 
         <Preference
             app:iconSpaceReserved="false"
             app:key="exportLogs"
-            app:summary="@string/settings_export_logs_summary"
-            app:title="@string/settings_export_logs" />
+            app:summary="@string/summary_export_logs"
+            app:title="@string/preference_export_logs" />
     </PreferenceCategory>
 </PreferenceScreen>
