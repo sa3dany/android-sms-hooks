@@ -69,7 +69,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     }
                 }
             } catch (e: FileNotFoundException) {
-                // If no log file exists yet (no log entries)
+                DocumentsContract.deleteDocument(context.contentResolver, uri)
             }
         }
     }
