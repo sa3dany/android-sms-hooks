@@ -4,13 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.DocumentsContract
 import android.text.InputType
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.preference.EditTextPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.*
 import java.io.FileNotFoundException
-import java.io.FileOutputStream
 
 /**
  * Uses the Preferences component for managing app settings.
@@ -61,17 +59,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
      * we get a file URI as a result
      */
     private fun onCreateTextFileResult(uri: Uri?) {
-        try {
-            val log = preferenceManager.context.openFileInput("log")
-            if (uri != null) {
-                activity?.contentResolver?.openFileDescriptor(uri, "w")?.use {
-                    FileOutputStream(it.fileDescriptor).use { output ->
-                        log?.copyTo(output)
+        if (uri == null)
+            return
+        preferenceManager.context.also { context ->
+            try {
+                context.openFileInput("log").use { privateLogFile ->
+                    context.contentResolver.openOutputStream(uri)?.use { outputLogFile ->
+                        privateLogFile.copyTo(outputLogFile)
                     }
                 }
+            } catch (e: FileNotFoundException) {
+                // If no log file exists yet (no log entries)
             }
-        } catch (e: FileNotFoundException) {
-            // If no log file exists yet (no log entries)
         }
     }
 
