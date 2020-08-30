@@ -1,19 +1,24 @@
 <resources>
     <string name="app_name">SMS Hooks</string>
-    <string name="btn_app_settings">App Settings</string>
-    <string name="btn_request_permissions">Request Permissions</string>
+    <string name="btn_app_settings">System Settings</string>
+    <string name="btn_request_permissions">OK, try again</string>
     <string name="hint_webhook_url">https://yourserver.com</string>
     <string name="img_alt_notify">Confirm</string>
     <string name="notification_channel_name">@string/app_name</string>
-    <string name="notification_channel_description">tedt</string>
     <string name="preference_category_debug">Debug</string>
     <string name="preference_category_webhook">SMS Webhook</string>
     <string name="preference_enabled">Enabled</string>
     <string name="preference_export_logs">View logs</string>
     <string name="preference_webhook_url">URL</string>
     <string name="summary_export_logs">Export logs to file</string>
-    <string name="text_sms_permission_reason">
+    <string name="text_sms_permission_edu">
         In order to enable SMS webhooks, we need access to incoming
         SMS messages.
     </string>
+    <string name="text_sms_permission_denied_help">
+        We are missing required permissions.
+        Please grant the SMS permission through system settings.
+    </string>
+    <string name="title_sms_permission_edu">Grant Permissions</string>
+    <string name="title_sms_permission_denied">We\'re Locked Out</string>
 </resources>

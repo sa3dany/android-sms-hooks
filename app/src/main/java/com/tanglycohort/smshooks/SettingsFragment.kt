@@ -7,13 +7,12 @@ import android.os.Bundle
 import android.provider.DocumentsContract
 import android.text.InputType
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.preference.*
+import androidx.preference.EditTextPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreferenceCompat
 import java.io.FileNotFoundException
 
-/**
- * Uses the Preferences component for managing app settings.
- * Also serves as app home fragment
- */
 class SettingsFragment : PreferenceFragmentCompat() {
 
     /**
