@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Unreleased
+## 0.2
 - Runtime permission request and UX flow for SMS permission
 - Refresh app icon
 - Use vector drawable for adaptive app icon
