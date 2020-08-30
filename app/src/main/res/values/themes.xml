@@ -1,6 +1,5 @@
 <resources>
-    <!--  Light theme  -->
-    <style name="Theme.SmsHooks" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.SmsHooks.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/littleBoyBlue</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorPrimaryVariant">@color/lightSkyBlue</item>
