@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.android.extensions'
+
+    // Navigation Safe args
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 
@@ -15,6 +18,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         versionCode 1
         versionName "0.1"
+    }
+
+    buildFeatures {
+        // View-binding
+        viewBinding true
     }
 
     buildTypes {
@@ -51,6 +59,12 @@ dependencies {
 
     // Material
     implementation "com.google.android.material:material:$rootProject.materialVersion"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    androidTestImplementation "androidx.navigation:navigation-testing:$rootProject.navVersion"
 
     // Preferences
     implementation "androidx.preference:preference-ktx:$rootProject.preferenceVersion"

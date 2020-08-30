@@ -16,6 +16,7 @@ buildscript {
         kotlinVersion = "1.4.0"
         ktxVersion = '1.3.1'
         materialVersion = '1.2.0'
+        navVersion = "2.3.0"
         okHttpVersion = '4.8.1'
         preferenceVersion = '1.1.1'
         testExtJunit = '1.1.2'
@@ -30,6 +31,9 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+
+        // Navigation Safe Args
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
     }
 }
 

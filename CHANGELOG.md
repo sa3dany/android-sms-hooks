@@ -2,6 +2,7 @@ Changelog
 =========
 
 ## Unreleased
+- Runtime permission request and UX flow for SMS permission
 - Refresh app icon
 - Use vector drawable for adaptive app icon
 - Fix single sms being sent to webhook over multiple requests
