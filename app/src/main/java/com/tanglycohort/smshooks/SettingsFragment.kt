@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.DocumentsContract
 import android.text.InputType
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
@@ -14,22 +15,32 @@ import androidx.preference.SwitchPreferenceCompat
 import java.io.FileNotFoundException
 
 class SettingsFragment : PreferenceFragmentCompat() {
-
-    /**
-     * Simple class that extends [ActivityResultContracts.CreateDocument]
-     * Just sets the category (openable) & MIME type to text/plain
-     */
-    class CreateTextFile : ActivityResultContracts.CreateDocument() {
-        override fun createIntent(context: Context, input: String): Intent {
-            return super.createIntent(context, input).apply {
-                addCategory(Intent.CATEGORY_OPENABLE)
-                type = "text/plain"
+    companion object {
+        /**
+         * Simple class that extends [ActivityResultContracts.CreateDocument]
+         * Just sets the category (openable) & MIME type to text/plain
+         */
+        class CreateTextFile : ActivityResultContracts.CreateDocument() {
+            override fun createIntent(context: Context, input: String): Intent {
+                return super.createIntent(context, input).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    type = "text/plain"
+                }
             }
         }
     }
 
+    private val registrationToCreateTextFile =
+        registerForActivityResult(
+            CreateTextFile()
+        ) { uri: Uri? -> onCreateTextFileResult(uri) }
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupPreferences()
     }
 
@@ -72,12 +83,4 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         }
     }
-
-    /**
-     * Registration for intent results
-     */
-    private val registrationToCreateTextFile =
-        registerForActivityResult(
-            CreateTextFile()
-        ) { uri: Uri? -> onCreateTextFileResult(uri) }
 }
