@@ -1,6 +1,12 @@
 <resources>
-    <!--  Dark theme  -->
-    <style name="Theme.SmsHooks" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.SmsHooks.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/littleBoyBlue</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorPrimaryVariant">@color/lightSkyBlue</item>
+        <item name="colorOnPrimary">@color/white</item>
         <item name="colorAccent">@color/lightSkyBlue</item>
+        <item name="colorSecondary">@color/fuzzyWuzzy</item>
+        <item name="colorSecondaryVariant">@color/mantis</item>
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 </resources>
