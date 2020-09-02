@@ -34,11 +34,14 @@
 
     <dialog
         android:id="@+id/urlPreferenceDialogFragment"
-        android:name="com.tanglycohort.smshooks.views.UrlPreferenceDialogFragment"
+        android:name="com.tanglycohort.smshooks.views.UrlDialogFragment"
         android:label="UrlPreferenceDialogFragment"
         tools:layout="@layout/dialog_edit_text">
         <argument
             android:name="key"
+            app:argType="string" />
+        <argument
+            android:name="initialValue"
             app:argType="string" />
         <argument
             android:name="forceHttps"
