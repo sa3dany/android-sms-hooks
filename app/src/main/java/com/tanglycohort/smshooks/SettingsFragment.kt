@@ -8,6 +8,9 @@ import android.os.Bundle
 import android.provider.DocumentsContract
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -27,10 +30,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private val preferenceChangeListener =
-        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            onSharedPreferenceChanged(key)
-        }
+    private lateinit var preferences: SharedPreferences
+    private lateinit var webhookUrl: Preference
+
     private val registrationToCreateTextFile =
         registerForActivityResult(
             CreateTextFile()
@@ -38,52 +40,52 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
+        preferences = preferenceManager.sharedPreferences
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupPreferences()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(
-            preferenceChangeListener
-        )
-    }
-
-    override fun onPause() {
-        super.onPause()
-        preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(
-            preferenceChangeListener
-        )
+        findNavController().currentBackStackEntry?.also {
+            observeDialogResults(it)
+        }
     }
 
     private fun setupPreferences() {
         (findPreference("webhookUrl") as Preference?)?.apply {
-            summary = preferenceManager.sharedPreferences.getString(key, "Not set")
-            setOnPreferenceClickListener { preference ->
-                onWebhookUrlClick(preference)
-            }
+            webhookUrl = this
+            summary = preferences.getString(key, "Not set")
+            setOnPreferenceClickListener { preference -> onWebhookUrlClick(preference) }
         }
         (findPreference("exportLogs") as Preference?)?.apply {
-            setOnPreferenceClickListener {
-                onExportPreferenceClick()
-            }
+            setOnPreferenceClickListener { onExportPreferenceClick() }
         }
     }
 
-    private fun onSharedPreferenceChanged(key: String) {
-        if (key == "webhookUrl") {
-            (findPreference(key) as Preference?)?.apply {
-                summary = preferenceManager.sharedPreferences.getString(key, "Not set")
+    private fun observeDialogResults(backStackEntry: NavBackStackEntry) {
+        LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME
+                && backStackEntry.savedStateHandle.contains(webhookUrl.key)
+            ) {
+                backStackEntry.savedStateHandle.get<String>(webhookUrl.key).also {
+                    setPreference(webhookUrl.key, "https://$it")
+                    webhookUrl.summary = it
+                }
             }
+        }.also {
+            backStackEntry.lifecycle.addObserver(it)
+            viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_DESTROY) {
+                    backStackEntry.lifecycle.removeObserver(it)
+                }
+            })
         }
     }
 
     private fun onWebhookUrlClick(preference: Preference): Boolean {
         SettingsFragmentDirections.apply {
             actionSettingsFragmentToUrlPreferenceDialogFragment(
+                initialValue = preferences.getString(preference.key, "")!!,
                 key = preference.key,
                 forceHttps = true
             ).also { findNavController().navigate(it) }
@@ -113,6 +115,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             } catch (e: FileNotFoundException) {
                 DocumentsContract.deleteDocument(context.contentResolver, uri)
             }
+        }
+    }
+
+    private fun setPreference(key: String, value: Any) {
+        preferences.edit().apply {
+            putString(key, value as String)
+            apply()
         }
     }
 }

@@ -3,37 +3,27 @@ package com.tanglycohort.smshooks.views
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.DialogInterface.BUTTON_POSITIVE
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
-import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.preference.PreferenceManager
 import com.google.android.material.textfield.TextInputLayout
 import com.tanglycohort.smshooks.R
 import okhttp3.HttpUrl.Companion.toHttpUrl
 
-class UrlPreferenceDialogFragment() : DialogFragment() {
-    private val args: UrlPreferenceDialogFragmentArgs by navArgs()
-
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var positiveButton: Button
+class UrlDialogFragment() : DialogFragment() {
+    private val args: UrlDialogFragmentArgs by navArgs()
     private lateinit var editTextLayout: TextInputLayout
-
-    private var preferenceText: String?
-        get() = getPreference()
-        set(value) = setPreference(value)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder: AlertDialog.Builder
 
         requireActivity().apply {
             layoutInflater.inflate(R.layout.dialog_edit_text, null).also { view ->
-                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
                 editTextLayout = view.findViewById(R.id.editTextLayout)
                 builder = AlertDialog.Builder(this)
                     .setView(view)
@@ -53,17 +43,18 @@ class UrlPreferenceDialogFragment() : DialogFragment() {
     }
 
     private fun onDialogShow(dialog: DialogInterface) {
-        positiveButton = (dialog as AlertDialog).getButton(BUTTON_POSITIVE)
-        positiveButton.isEnabled = false
+        (dialog as AlertDialog).getButton(BUTTON_POSITIVE).apply {
+            isEnabled = false
+        }
     }
 
     private fun onEditTextAttached(textInputLayout: TextInputLayout) {
         textInputLayout.hint = getString(R.string.preference_webhook_url)
         textInputLayout.editText?.apply {
-            if (args.forceHttps && preferenceText!!.startsWith("https://")) {
-                setText(preferenceText!!.drop(8))
+            if (args.forceHttps && args.initialValue.startsWith("https://")) {
+                setText(args.initialValue.drop(8))
             } else {
-                setText(preferenceText)
+                setText(args.initialValue)
             }
             inputType = InputType.TYPE_TEXT_VARIATION_URI
             doAfterTextChanged { editable -> onEditTextChanged(editable) }
@@ -79,28 +70,16 @@ class UrlPreferenceDialogFragment() : DialogFragment() {
     }
 
     private fun onPositiveButtonClick() {
-        preferenceText = editTextLayout.editText?.text.toString()
+        findNavController().getBackStackEntry(R.id.settingsFragment).savedStateHandle.set(
+            args.key, editTextLayout.editText?.text.toString()
+        )
     }
 
     private fun setError(message: String?) {
-        positiveButton.isEnabled = message == null
         editTextLayout.error = message
-    }
-
-    private fun getPreference(): String? {
-        return if (::sharedPreferences.isInitialized) {
-            return sharedPreferences.getString(args.key, null)
-        } else {
-            null
+        (dialog as AlertDialog).getButton(BUTTON_POSITIVE).apply {
+            isEnabled = (message == null)
         }
-    }
-
-    private fun setPreference(newValue: String?) {
-        if (::sharedPreferences.isInitialized)
-            sharedPreferences.edit().putString(
-                args.key,
-                if (args.forceHttps) "https://$newValue" else newValue
-            ).apply()
     }
 
     private fun isValidUrl(url: String): Boolean {
