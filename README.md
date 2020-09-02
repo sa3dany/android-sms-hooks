@@ -1,8 +1,9 @@
-Android SMS Webhooks
-====================
+![SMS Hooks](https://repository-images.githubusercontent.com/284747433/11358f80-df97-11ea-900f-8fb2b7a6f620)
+============================================================================================================
 
-Sends a POST request to your webhook URL each time you receive an SMS message.
-Since SMS messages can contain sensetive information, this app only alows HTTPS protocol URLs. 
+SMS Hooks is an app that listens for incoming SMS messages then sends a `POST` request to your webhook URL containing the SMS details.
+
+> ⚠️ **Warning:** Since SMS messages can contain sensetive information, this app only alows HTTPS protocol URLs. 
 
 Request Body
 ------------
