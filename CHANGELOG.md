@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## Unreleased
+- Only allow HTTPS for webhook URLs
+- Use custom dialog for settings the webhook URL preference
+
 ## 0.2
 - Runtime permission request and UX flow for SMS permission
 - Refresh app icon
