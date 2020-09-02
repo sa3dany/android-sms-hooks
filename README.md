@@ -1,7 +1,8 @@
 Android SMS Webhooks
 ====================
 
-Sends a POST request to a custom endpoint each time you receive an SMS message.
+Sends a POST request to your webhook URL each time you receive an SMS message.
+Since SMS messages can contain sensetive information, this app only alows HTTPS protocol URLs. 
 
 Request Body
 ------------
