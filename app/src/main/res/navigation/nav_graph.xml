@@ -26,12 +26,29 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.tanglycohort.smshooks.SettingsFragment"
-        android:label="Preferences" />
+        android:label="Preferences">
+        <action
+            android:id="@+id/action_settingsFragment_to_urlPreferenceDialogFragment"
+            app:destination="@id/urlPreferenceDialogFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/urlPreferenceDialogFragment"
+        android:name="com.tanglycohort.smshooks.views.UrlPreferenceDialogFragment"
+        android:label="UrlPreferenceDialogFragment"
+        tools:layout="@layout/dialog_edit_text">
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <argument
+            android:name="forceHttps"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </dialog>
 
     <fragment
         android:id="@+id/permissionsDeniedFragment"
         android:name="com.tanglycohort.smshooks.PermissionsDeniedFragment"
         android:label="fragment_permissions_denied"
         tools:layout="@layout/fragment_permissions_denied" />
-
 </navigation>

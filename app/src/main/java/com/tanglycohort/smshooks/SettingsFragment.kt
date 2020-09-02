@@ -2,34 +2,35 @@ package com.tanglycohort.smshooks
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.provider.DocumentsContract
-import android.text.InputType
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.preference.EditTextPreference
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreferenceCompat
 import java.io.FileNotFoundException
 
 class SettingsFragment : PreferenceFragmentCompat() {
-    companion object {
-        /**
-         * Simple class that extends [ActivityResultContracts.CreateDocument]
-         * Just sets the category (openable) & MIME type to text/plain
-         */
-        class CreateTextFile : ActivityResultContracts.CreateDocument() {
-            override fun createIntent(context: Context, input: String): Intent {
-                return super.createIntent(context, input).apply {
-                    addCategory(Intent.CATEGORY_OPENABLE)
-                    type = "text/plain"
-                }
+    /**
+     * Simple class that extends [ActivityResultContracts.CreateDocument]
+     * Just sets the category (openable) & MIME type to text/plain
+     */
+    class CreateTextFile : ActivityResultContracts.CreateDocument() {
+        override fun createIntent(context: Context, input: String): Intent {
+            return super.createIntent(context, input).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "text/plain"
             }
         }
     }
 
+    private val preferenceChangeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            onSharedPreferenceChanged(key)
+        }
     private val registrationToCreateTextFile =
         registerForActivityResult(
             CreateTextFile()
@@ -44,12 +45,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setupPreferences()
     }
 
+    override fun onResume() {
+        super.onResume()
+        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(
+            preferenceChangeListener
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(
+            preferenceChangeListener
+        )
+    }
+
     private fun setupPreferences() {
-        (findPreference("serverUrl")
-                as EditTextPreference?)?.apply {
-            setOnBindEditTextListener { editText ->
-                editText.inputType = InputType.TYPE_TEXT_VARIATION_URI
-                editText.hint = getString(R.string.hint_webhook_url)
+        (findPreference("webhookUrl") as Preference?)?.apply {
+            summary = preferenceManager.sharedPreferences.getString(key, "Not set")
+            setOnPreferenceClickListener { preference ->
+                onWebhookUrlClick(preference)
             }
         }
         (findPreference("exportLogs") as Preference?)?.apply {
@@ -57,6 +71,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 onExportPreferenceClick()
             }
         }
+    }
+
+    private fun onSharedPreferenceChanged(key: String) {
+        if (key == "webhookUrl") {
+            (findPreference(key) as Preference?)?.apply {
+                summary = preferenceManager.sharedPreferences.getString(key, "Not set")
+            }
+        }
+    }
+
+    private fun onWebhookUrlClick(preference: Preference): Boolean {
+        SettingsFragmentDirections.apply {
+            actionSettingsFragmentToUrlPreferenceDialogFragment(
+                key = preference.key,
+                forceHttps = true
+            ).also { findNavController().navigate(it) }
+        }
+        return true
     }
 
     private fun onExportPreferenceClick(): Boolean {
