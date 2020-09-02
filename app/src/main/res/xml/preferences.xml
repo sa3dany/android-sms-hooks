@@ -9,11 +9,10 @@
             app:key="webhookEnabled"
             app:title="@string/preference_enabled" />
 
-        <EditTextPreference
+        <Preference
             app:iconSpaceReserved="false"
             app:key="webhookUrl"
-            app:title="@string/preference_webhook_url"
-            app:useSimpleSummaryProvider="true" />
+            app:title="@string/preference_webhook_url"/>
     </PreferenceCategory>
 
 
