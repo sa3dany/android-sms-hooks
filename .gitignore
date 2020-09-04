@@ -6,3 +6,5 @@
 /captures
 /local.properties
 ktlint
+app/release
+keystore.properties
