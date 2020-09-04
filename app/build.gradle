@@ -43,36 +43,32 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlinVersion"
+    // Navigation component
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // Preferences component
+    implementation "androidx.preference:preference-ktx:$rootProject.preferenceVersion"
+
+    // WorkManager component
+    implementation "androidx.work:work-runtime-ktx:$rootProject.workVersion"
+
+    // Third-party
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
 
     // Core
     implementation "androidx.activity:activity-ktx:$rootProject.activityVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
     implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
-
+    
     // v1.3.0-alpha8 causes fragment overlap when using navigation component
     implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
-
-    // Material
     implementation "com.google.android.material:material:$rootProject.materialVersion"
-
-    // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navVersion"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    androidTestImplementation "androidx.navigation:navigation-testing:$rootProject.navVersion"
-
-    // Preferences
-    implementation "androidx.preference:preference-ktx:$rootProject.preferenceVersion"
-
-    // WorkManager
-    implementation "androidx.work:work-runtime-ktx:$rootProject.workVersion"
-    androidTestImplementation "androidx.work:work-testing:$rootProject.workVersion"
-
-    implementation "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
-
+    testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunit"
-    testImplementation "junit:junit:$rootProject.junitVersion"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlinVersion"
 }
