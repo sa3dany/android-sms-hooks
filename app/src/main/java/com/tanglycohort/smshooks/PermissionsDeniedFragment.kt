@@ -19,6 +19,7 @@ import com.tanglycohort.smshooks.databinding.FragmentPermissionsDeniedBinding
 class PermissionsDeniedFragment : Fragment() {
     private var _binding: FragmentPermissionsDeniedBinding? = null
     private val binding get() = _binding!!
+    private var permissionsGranted = false
     private val registrationToOpenAppInfo =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -45,6 +46,13 @@ class PermissionsDeniedFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (permissionsGranted) {
+            findNavController().popBackStack()
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -68,7 +76,7 @@ class PermissionsDeniedFragment : Fragment() {
                 Manifest.permission.RECEIVE_SMS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            findNavController().popBackStack(R.id.homeFragment, false)
+            permissionsGranted = true
         }
     }
 }
