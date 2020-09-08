@@ -4,6 +4,7 @@ Changelog
 ## Unreleased
 - Only allow HTTPS for webhook URLs
 - Use custom dialog for settings the webhook URL preference
+- Fix fragment overlap when using fragment v1.3.0-alpha08
 
 ## 0.2
 - Runtime permission request and UX flow for SMS permission
