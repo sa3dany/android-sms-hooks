@@ -29,7 +29,7 @@ class PermissionsEduFragment : Fragment() {
     ): View? {
         _binding = FragmentPermissionsEduBinding.inflate(inflater, container, false)
         binding.apply {
-            button.setOnClickListener { onButtonClick() }
+            tryAgainButton.setOnClickListener { onButtonClick() }
             return root
         }
     }

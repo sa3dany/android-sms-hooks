@@ -41,7 +41,7 @@ class PermissionsDeniedFragment : Fragment() {
     ): View? {
         _binding = FragmentPermissionsDeniedBinding.inflate(inflater, container, false)
         binding.apply {
-            button.setOnClickListener { onButtonClick() }
+            appInfoButton.setOnClickListener { onButtonClick() }
             return root
         }
     }
@@ -61,7 +61,6 @@ class PermissionsDeniedFragment : Fragment() {
     private fun onButtonClick() {
         Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
             data = Uri.parse("package:${context?.packageName}")
-            // addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             registrationToOpenAppInfo.launch(this)
         }
     }

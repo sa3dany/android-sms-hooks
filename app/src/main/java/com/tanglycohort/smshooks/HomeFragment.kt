@@ -13,18 +13,15 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 
 class HomeFragment : Fragment() {
-
     private val registrationToAskPermission =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted -> onAskPermissionResult(isGranted) }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Conditional navigation depending on permission status
         if (ContextCompat.checkSelfPermission(
                 requireContext(), Manifest.permission.RECEIVE_SMS
             ) == PackageManager.PERMISSION_GRANTED
