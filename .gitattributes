@@ -1,3 +1,5 @@
-*.png filter=lfs diff=lfs merge=lfs -text
+*.afdesign filter=lfs diff=lfs merge=lfs -text
 *.jar filter=lfs diff=lfs merge=lfs -text
-app/src/main/res/drawable/*.xml filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+/app/src/main/res/drawable/*.xml filter=lfs diff=lfs merge=lfs -text
+/art/**/*.svg filter=lfs diff=lfs merge=lfs -text
