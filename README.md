@@ -3,7 +3,7 @@
 
 SMS Hooks is an app that listens for incoming SMS messages then sends a `POST` request to your webhook URL containing the SMS details.
 
-> ⚠️ **Warning:** Since SMS messages can contain sensetive information, this app only alows HTTPS protocol URLs. 
+> ⚠️ **Warning:** Since SMS messages can contain sensitive information, this app only alows HTTPS protocol URLs. 
 
 Request Body
 ------------
