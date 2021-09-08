@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.4.0 (Unreleased)
+
+- Update dependencies
+
 ## 0.3.1 (Apr 24, 2021)
 - Update dependencies
 
@@ -8,6 +12,7 @@ Changelog
 - Only allow HTTPS for webhook URLs
 - Use custom dialog for settings the webhook URL preference
 - Fix fragment overlap when using fragment v1.3.0-alpha0
+
 ## 0.2
 - Runtime permission request and UX flow for SMS permission
 - Refresh app icon
