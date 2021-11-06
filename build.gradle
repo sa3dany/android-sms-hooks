@@ -1,16 +1,16 @@
 buildscript {
     ext {
         // Sdk and tools
-        compileSdkVersion = 30
-        targetSdkVersion = 30
+        compileSdkVersion = 31
+        targetSdkVersion = 29
         minSdkVersion = 29
 
         navVersion = "2.3.5"
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.2"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
+        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0-RC2"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
     }
 
