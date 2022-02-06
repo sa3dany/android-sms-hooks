@@ -25,7 +25,7 @@ appends each SMS as a new record in the spreadsheet.
 1. [Create](https://docs.google.com/spreadsheets/create) a spreadsheet in Google
    Sheets.
 2. Create a sheet-bound Google Apps Script by selecting
-   **Tools > Script Editor** from the spreadsheet.
+   **Extensions > Apps Script** from the spreadsheet.
 3. This should open the newly created Google Apps Script project. Inside the
    `Code.gs` file delete any existing code.
 4. Add the following function to the file:
@@ -33,12 +33,12 @@ appends each SMS as a new record in the spreadsheet.
     ```javascript
     /**
      * This function is executed when a POST request is made to the published
-    * script URL. It appends the SMS details as a record in first sheet in the
-    * spreadsheet bound to the script.
-    *
-    * For documentation about the request parameter `e` please see:
-    * https://developers.google.com/apps-script/guides/web#request_parameters
-    */
+     * script URL. It appends the SMS details as a row in first sheet in the
+     * spreadsheet bound to the script.
+     *
+     * For documentation about the request parameter `e` please see:
+     * https://developers.google.com/apps-script/guides/web#request_parameters
+     */
     function doPost(e) {
       let sms = JSON.parse(e.postData.contents);
       let sheet = SpreadsheetApp.getActive().getSheets()[0];
@@ -49,10 +49,11 @@ appends each SMS as a new record in the spreadsheet.
     }
     ```
 
-5. Select **Publish > Deploy as Web App** from the script.
-6. Change `Who has access to the app:` to **"Anyone, even anonymous"**
-7. Click **Deploy** then complete the authorization flow.
-8. Use the generated web app URL in SMS Hooks as the webhook server URL.
+5. Click the **Deploy** button and select **New Deployment** from the script.
+6. For deployment type select **Web App**
+7. Change `Who has access to the app:` to **"Anyone"** (⚠️ This means anyone with the URL can perform a POST request to this script)
+8. Click **Deploy** then complete the authorization flow.
+9. Use the generated web app URL in SMS Hooks as the webhook server URL.
 
 ## Screenshots
 
