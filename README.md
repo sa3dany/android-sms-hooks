@@ -2,7 +2,8 @@
 
 SMS Hooks is an app that listens for incoming SMS messages then sends a `POST` request to your webhook URL containing the SMS details.
 
-> ⚠️ **Warning:** Since SMS messages can contain sensitive information, this app only allows HTTPS protocol URLs.
+> **Warning**:
+> Since SMS messages can contain sensitive information, this app only allows HTTPS protocol URLs.
 
 ## Request Body
 
@@ -12,7 +13,7 @@ For each SMS message a POST request is made with a JSON body containing the SMS 
 {
   "body": "<SMS Message>",
   "from": "<SMS Sender>",
-  "timestamp": 1598773970403, // Milliseconds
+  "timestamp": 1598773970403, // UTC Milliseconds
 }
 ```
 
@@ -20,7 +21,7 @@ For each SMS message a POST request is made with a JSON body containing the SMS 
 
 If you have a Google account you can combine Google Sheets with Google Apps
 Script to create a simple webhook server that responds to the SMS webhooks and
-appends each SMS as a new record in the spreadsheet.
+appends each SMS as a new row in the spreadsheet.
 
 1. [Create](https://docs.google.com/spreadsheets/create) a spreadsheet in Google
    Sheets.
@@ -51,7 +52,8 @@ appends each SMS as a new record in the spreadsheet.
 
 5. Click the **Deploy** button and select **New Deployment** from the script.
 6. For deployment type select **Web App**
-7. Change `Who has access to the app:` to **"Anyone"** (⚠️ This means anyone with the URL can perform a POST request to this script)
+7. Change `Who has access to the app:` to **"Anyone"**
+   > **Warning**: This means anyone with the URL can perform a POST request to this script
 8. Click **Deploy** then complete the authorization flow.
 9. Use the generated web app URL in SMS Hooks as the webhook server URL.
 
