@@ -60,3 +60,7 @@ appends each SMS as a new row in the spreadsheet.
 ## Screenshots
 
 ![App settings](screenshots/screenshot.png "App settings")
+
+## Credits
+
+- Katerina Limpitsouni's [unDraw](https://undraw.co/) for the vector illustrations
