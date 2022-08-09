@@ -1,9 +1,10 @@
 Changelog
 =========
 
-## 0.4.0 (Unreleased)
+## 0.4.0 (Aug 09, 2022)
 
 - Update dependencies
+- First release APK published on GitHub
 
 ## 0.3.1 (Apr 24, 2021)
 - Update dependencies
