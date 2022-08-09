@@ -10,7 +10,7 @@
         android:id="@+id/editTextLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:helperText="The URL for you webhook server. Only HTTPS allowed."
+        app:helperText="The URL for your webhook server. Only HTTPS allowed."
         app:helperTextEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
