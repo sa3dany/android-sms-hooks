@@ -40,7 +40,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
-        preferences = preferenceManager.sharedPreferences
+        preferences = preferenceManager.sharedPreferences!!
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
