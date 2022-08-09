@@ -1,9 +1,15 @@
-# ![SMS Hooks](https://repository-images.githubusercontent.com/284747433/11358f80-df97-11ea-900f-8fb2b7a6f620)
+# [![SMS Hooks](https://repository-images.githubusercontent.com/284747433/11358f80-df97-11ea-900f-8fb2b7a6f620)](https://wolfia.com/magic-link/05424ec8-8ecb-4b2d-9458-61225da7f47c?emulatorSessionId=2dbb0dac-3a76-4415-8e1e-bb3cfba812f8)
 
 SMS Hooks is an app that listens for incoming SMS messages then sends a `POST` request to your webhook URL containing the SMS details.
 
 > **Warning**:
 > Since SMS messages can contain sensitive information, this app only allows HTTPS protocol URLs.
+
+## Online Demo
+
+Try this app now using your browser:
+
+[![Wolfia's online Android emulator](art/wolfia-button.webp)](https://wolfia.com/magic-link/05424ec8-8ecb-4b2d-9458-61225da7f47c?emulatorSessionId=2dbb0dac-3a76-4415-8e1e-bb3cfba812f8)
 
 ## Request Body
 
@@ -64,3 +70,4 @@ appends each SMS as a new row in the spreadsheet.
 ## Credits
 
 - Katerina Limpitsouni's [unDraw](https://undraw.co/) for the vector illustrations
+- [Wolfia](https://www.wolfia.com/) for the live APK demo!
