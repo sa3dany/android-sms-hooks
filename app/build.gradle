@@ -5,6 +5,8 @@ plugins {
 }
 
 android {
+    namespace 'com.tanglycohort.smshooks'
+
     compileSdkVersion rootProject.compileSdkVersion
 
     defaultConfig {
