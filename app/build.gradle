@@ -14,8 +14,8 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        versionCode 4
-        versionName "0.4.0"
+        versionCode 5
+        versionName "0.4.1"
     }
 
     buildFeatures {
@@ -56,10 +56,10 @@ dependencies {
 
     // Core
     implementation "androidx.activity:activity-ktx:1.5.1"
-    implementation "androidx.appcompat:appcompat:1.4.2"
+    implementation "androidx.appcompat:appcompat:1.5.0"
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation "androidx.core:core-ktx:1.8.0"
-    implementation "androidx.fragment:fragment-ktx:1.5.1"
+    implementation "androidx.fragment:fragment-ktx:1.5.2"
     implementation "com.google.android.material:material:1.6.1"
     testImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"

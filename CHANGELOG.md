@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 0.4.1 (Aug 24, 2022)
+
+- Update dependencies
+- Update compiler SDK version to 32
+- Fix build a warning
+
 ## 0.4.0 (Aug 09, 2022)
 
 - Update dependencies

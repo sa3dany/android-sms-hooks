@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.DocumentsContract
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavBackStackEntry
@@ -21,11 +22,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
      * Simple class that extends [ActivityResultContracts.CreateDocument]
      * Just sets the category (openable) & MIME type to text/plain
      */
-    class CreateTextFile : ActivityResultContracts.CreateDocument() {
+    class CreateTextFile : CreateDocument("text/plain") {
         override fun createIntent(context: Context, input: String): Intent {
             return super.createIntent(context, input).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
-                type = "text/plain"
             }
         }
     }
