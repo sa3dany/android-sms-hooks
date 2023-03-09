@@ -1,5 +1,9 @@
 # [![SMS Hooks](https://repository-images.githubusercontent.com/284747433/11358f80-df97-11ea-900f-8fb2b7a6f620)](https://wolfia.com/magic-link/05424ec8-8ecb-4b2d-9458-61225da7f47c?emulatorSessionId=2dbb0dac-3a76-4415-8e1e-bb3cfba812f8)
 
+## Inactivity Notice
+Due to time constrains, I am not able to work on SMS Hooks at the time being. Another alternative app is [Android Incoming SMS Gateway Webhook](https://github.com/bogkonstantin/android_income_sms_gateway_webhook).
+
+
 SMS Hooks is an app that listens for incoming SMS messages then sends a `POST` request to your webhook URL containing the SMS details.
 
 > **Warning**:
