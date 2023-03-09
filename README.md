@@ -3,6 +3,7 @@
 ## Inactivity Notice
 Due to time constrains, I am not able to work on SMS Hooks at the time being. Another alternative app is [Android Incoming SMS Gateway Webhook](https://github.com/bogkonstantin/android_income_sms_gateway_webhook).
 
+## About
 
 SMS Hooks is an app that listens for incoming SMS messages then sends a `POST` request to your webhook URL containing the SMS details.
 
